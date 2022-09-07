@@ -19,11 +19,10 @@ class WorkFile():
 
     @check_exist_file
     def read(self):
-        with open(self.path, 'r') as file:
-            return file.read()
+        with open(self.path, 'r') as csvfile:
+            csv.reader(csvfile)
     
     @check_exist_file
     def write(self, data):
-        with open(self.path, 'wa') as file:
-            file.write(data) 
-    
+        with open(self.path, 'w') as csvfile:
+            csv.writer(csvfile).writerows(data)
