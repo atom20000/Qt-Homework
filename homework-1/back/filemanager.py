@@ -26,6 +26,7 @@ class WorkFile():
             #    with open('coors_new.csv', mode='w') as outfile:
             #        writer = csv.writer(outfile)
             #        mydict = {rows[0]:rows[1] for rows in reader}
+            #TODO
     
     @check_exist_file
     def write(self, data):
