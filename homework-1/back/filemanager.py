@@ -1,7 +1,6 @@
 import csv
 import os
 
-
 class WorkFile():
 
 
@@ -20,18 +19,18 @@ class WorkFile():
     @check_exist_file
     def read(self):
         with open(self.path, 'r') as csvfile:
-            csv.reader(csvfile)
-            #with open('coors.csv', mode='r') as infile:
-            #    reader = csv.reader(infile)
-            #    with open('coors_new.csv', mode='w') as outfile:
-            #        writer = csv.writer(outfile)
-            #        mydict = {rows[0]:rows[1] for rows in reader}
-            #TODO
+            reader = csv.DictReader(csvfile)
+            outdict = {i:[] for i in reader.fieldnames}
+            for row in reader:
+                for item in row.items():
+                     outdict[item[0]].append(item[1])
+            return outdict
     
     @check_exist_file
     def write(self, data):
         with open(self.path, 'w') as csvfile:
             csv.writer(csvfile).writerows(data)
+            #TODO
 
 if __name__ == '__main__':
-    print(WorkFile('/home/atom/Qt-Homework/homework-1/back/addresses.csv').read())
+    print(WorkFile('/home/atom/atom/Qt-Homework/homework-1/back/addresses.csv').read())
