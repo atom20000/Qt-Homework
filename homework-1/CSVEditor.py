@@ -1,17 +1,12 @@
 #!/usr/bin/env python3
 
 import sys
-from PyQt5.QtWidgets import QMainWindow, QApplication
-from gui.MainWindow import Ui_CsvEditor
-
-class CSVEditor(QMainWindow):
-    
-    def __init__(self, ui: Ui_CsvEditor) -> None:
-        super().__init__()
-        self.ui = ui
-        self.ui.setupUi(self)
+from gui.MainWindow import Main
+from PyQt5.QtWidgets import QApplication
+from gui.MainWindow_ui import Ui_CsvEditor
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    CSVEditor(Ui_CsvEditor()).show()
+    main = Main(Ui_CsvEditor())
+    main.show()
     sys.exit(app.exec_())
