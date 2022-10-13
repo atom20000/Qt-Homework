@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'MainWindow.ui'
+# Form implementation generated from reading ui file '/tmp/MainWindowNhvyCb.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.4
 #
@@ -21,6 +21,7 @@ class Ui_CsvEditor(object):
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
         self.tableView = QtWidgets.QTableView(self.centralwidget)
+        self.tableView.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectItems)
         self.tableView.setObjectName("tableView")
         self.gridLayout.addWidget(self.tableView, 0, 0, 1, 1)
         CsvEditor.setCentralWidget(self.centralwidget)
@@ -31,6 +32,8 @@ class Ui_CsvEditor(object):
         self.menuFile.setObjectName("menuFile")
         self.menuHelp = QtWidgets.QMenu(self.menubar)
         self.menuHelp.setObjectName("menuHelp")
+        self.menuEdit = QtWidgets.QMenu(self.menubar)
+        self.menuEdit.setObjectName("menuEdit")
         CsvEditor.setMenuBar(self.menubar)
         self.actionOpen = QtWidgets.QAction(CsvEditor)
         self.actionOpen.setObjectName("actionOpen")
@@ -46,12 +49,25 @@ class Ui_CsvEditor(object):
         self.actionAbout.setObjectName("actionAbout")
         self.actionQuit = QtWidgets.QAction(CsvEditor)
         self.actionQuit.setObjectName("actionQuit")
+        self.actionAddRows = QtWidgets.QAction(CsvEditor)
+        self.actionAddRows.setObjectName("actionAddRows")
+        self.actionAddColumns = QtWidgets.QAction(CsvEditor)
+        self.actionAddColumns.setObjectName("actionAddColumns")
+        self.actionRemoveRows = QtWidgets.QAction(CsvEditor)
+        self.actionRemoveRows.setObjectName("actionRemoveRows")
+        self.actionRemoveColumns = QtWidgets.QAction(CsvEditor)
+        self.actionRemoveColumns.setObjectName("actionRemoveColumns")
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave)
         self.menuFile.addAction(self.actionSave_as)
         self.menuFile.addAction(self.actionQuit)
         self.menuHelp.addAction(self.actionAbout)
+        self.menuEdit.addAction(self.actionAddRows)
+        self.menuEdit.addAction(self.actionAddColumns)
+        self.menuEdit.addAction(self.actionRemoveRows)
+        self.menuEdit.addAction(self.actionRemoveColumns)
         self.menubar.addAction(self.menuFile.menuAction())
+        self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(CsvEditor)
@@ -62,6 +78,7 @@ class Ui_CsvEditor(object):
         CsvEditor.setWindowTitle(_translate("CsvEditor", "CsvEditor"))
         self.menuFile.setTitle(_translate("CsvEditor", "File"))
         self.menuHelp.setTitle(_translate("CsvEditor", "Help"))
+        self.menuEdit.setTitle(_translate("CsvEditor", "Edit"))
         self.actionOpen.setText(_translate("CsvEditor", "Open"))
         self.actionOpen.setShortcut(_translate("CsvEditor", "Ctrl+O"))
         self.actionSave.setText(_translate("CsvEditor", "Save"))
@@ -73,3 +90,11 @@ class Ui_CsvEditor(object):
         self.actionAbout.setText(_translate("CsvEditor", "About"))
         self.actionQuit.setText(_translate("CsvEditor", "Quit"))
         self.actionQuit.setShortcut(_translate("CsvEditor", "Ctrl+Q"))
+        self.actionAddRows.setText(_translate("CsvEditor", "Add Rows"))
+        self.actionAddRows.setShortcut(_translate("CsvEditor", "Ctrl+A"))
+        self.actionAddColumns.setText(_translate("CsvEditor", "Add Columns"))
+        self.actionAddColumns.setShortcut(_translate("CsvEditor", "Ctrl+Shift+A"))
+        self.actionRemoveRows.setText(_translate("CsvEditor", "Remove Rows"))
+        self.actionRemoveRows.setShortcut(_translate("CsvEditor", "Ctrl+R"))
+        self.actionRemoveColumns.setText(_translate("CsvEditor", "Remove Columns"))
+        self.actionRemoveColumns.setShortcut(_translate("CsvEditor", "Ctrl+Shift+R"))
