@@ -13,10 +13,10 @@ class CSVModel(QAbstractTableModel):
         self.match_keys = { i:j for i, j in zip(range(self.columnCount()), self._QMap.keys())}
 
     def rowCount(self, parent: QModelIndex = QModelIndex()) -> int:
-        return len(max(self._QMap.values(), key= lambda item: len(item)))
+        return len(max(self._QMap.values(), key= lambda item: len(item), default=0)) if not parent.isValid() else 0
 
     def columnCount(self, parent: QModelIndex = QModelIndex()) -> int:
-        return len(self._QMap)
+        return len(self._QMap) if not parent.isValid() else 0
 
     def headerData(self, section: int, orientation: Qt.Orientation, role: int = Qt.ItemDataRole.DisplayRole) -> typing.Any:
         if role != Qt.ItemDataRole.DisplayRole:
