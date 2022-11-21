@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QFileDialog
 from gui.MainWindow_ui import Ui_BinaryTree
-
+from back.graphwidget import Graphwidget
 
 class Main(QMainWindow):
     
@@ -8,6 +8,7 @@ class Main(QMainWindow):
         super().__init__()
         self.path = ''
         self.ui = ui
+        self.ui.centralwidget = Graphwidget()
         self.ui.setupUi(self)
         self.ui.actionQuit.triggered.connect(QApplication.instance().quit)
         self.ui.actionOpen.triggered.connect(self.open_file)
