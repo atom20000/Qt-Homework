@@ -7,7 +7,7 @@ from .edge import Edge
 
 class Graphwidget(QGraphicsView):
     
-    def __init__(self):
+    def __init__(self, data = None):
         super().__init__()
         self.timerId = 0
         self.centernode = None
