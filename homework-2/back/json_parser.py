@@ -1,6 +1,7 @@
 import os
 import json
 
+
 class JsonParser():
 
     def __init__(self, path):

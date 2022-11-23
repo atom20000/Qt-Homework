@@ -48,14 +48,14 @@ class Edge(QGraphicsItem):
         painter.setPen(QPen(Qt.GlobalColor.black, 1, Qt.PenStyle.SolidLine, Qt.PenCapStyle.RoundCap, Qt.PenJoinStyle.RoundJoin))
         painter.drawLine(line)
         angle = atan2(-line.dy(), line.dx())
-        sourcearrowp1 = self.sourcepoint + QPointF(sin(angle + pi / 3) * self.arrowsize,
-                                                   cos(angle + pi / 3) * self.arrowsize)
-        sourcearrowp2 = self.sourcepoint + QPointF(sin(angle + pi - pi / 3) * self.arrowsize,
-                                                   cos(angle + pi - pi / 3) * self.arrowsize)
+        #sourcearrowp1 = self.sourcepoint + QPointF(sin(angle + pi / 3) * self.arrowsize,
+        #                                           cos(angle + pi / 3) * self.arrowsize)
+        #sourcearrowp2 = self.sourcepoint + QPointF(sin(angle + pi - pi / 3) * self.arrowsize,
+        #                                           cos(angle + pi - pi / 3) * self.arrowsize)
         destarrowp1 = self.destpoint + QPointF(sin(angle - pi / 3) * self.arrowsize,
                                                cos(angle - pi / 3) * self.arrowsize)
         destarrowp2 = self.destpoint + QPointF(sin(angle - pi + pi / 3) * self.arrowsize,
                                                cos(angle - pi + pi / 3) * self.arrowsize)
         painter.setBrush(Qt.GlobalColor.black)
-        painter.drawPolygon(QPolygonF([line.p1(), sourcearrowp1, sourcearrowp2]))
+        #painter.drawPolygon(QPolygonF([line.p1(), sourcearrowp1, sourcearrowp2]))
         painter.drawPolygon(QPolygonF([line.p2(), destarrowp1, destarrowp2]))

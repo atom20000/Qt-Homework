@@ -1,17 +1,29 @@
 {
-    "value": 2,
+    "value": "2",
     "left": {
-      "value": 1,
+      "value": "1",
       "left": null,
       "right": null
     },
     "right": {
-      "value": 10,
+      "value": "10",
       "left": {
-        "value": 5,
+        "value": "5",
         "left": null,
         "right": null
       },
-      "right": null
+      "right": {
+        "value": "8",
+        "left": {
+          "value": "73",
+          "left": null,
+          "right": null
+        },
+        "right":{
+          "value": "7",
+          "left": null,
+          "right": null
+        }
+      }
     }
   }

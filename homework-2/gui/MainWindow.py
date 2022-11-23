@@ -18,4 +18,4 @@ class Main(QMainWindow):
     def open_file(self):
         self.path = QFileDialog.getOpenFileName(filter='*.json *.JSON')[0]
         if self.path != '':
-            self.setCentralWidget(Graphwidget(JsonParser(self.path)))
+            self.setCentralWidget(Graphwidget(JsonParser(self.path).read()))
