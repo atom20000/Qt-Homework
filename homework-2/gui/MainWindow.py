@@ -8,8 +8,9 @@ class Main(QMainWindow):
         super().__init__()
         self.path = ''
         self.ui = ui
-        self.ui.centralwidget = Graphwidget()
         self.ui.setupUi(self)
+        #self.ui.centralwidget = Graphwidget()
+        self.setCentralWidget(Graphwidget())
         self.ui.actionQuit.triggered.connect(QApplication.instance().quit)
         self.ui.actionOpen.triggered.connect(self.open_file)
         

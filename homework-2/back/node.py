@@ -5,8 +5,9 @@ from PyQt5.QtCore import QPointF, QRectF, Qt
 class Node(QGraphicsItem):
     
     def __init__(self, graphwidget, value = 1):
+        super().__init__()
         self.value = value
-        self.edges = None
+        self.edges = []
         self.newposition = None
         self.graph = graphwidget
         self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
@@ -18,10 +19,6 @@ class Node(QGraphicsItem):
         self.edges.append(edge)
         edge.adjust()
     
-    @property
-    def edges(self):
-        return self.edges
-
     def calculateforces(self):
         if not self.scene() or self.scene().mouseGrabberItem() == self:
             self.newposition = self.pos()
@@ -37,8 +34,8 @@ class Node(QGraphicsItem):
             dy = vec.y()
             l = 2.0 * (dx * dx + dy * dy)
             if l > 0:
-                xvel += (dx * 150.0) / 1
-                yvel += (dy * 150.0) / 1
+                xvel += (dx * 150.0) / l
+                yvel += (dy * 150.0) / l
         weight = (len(self.edges) + 1) *10
         for edge in self.edges:
             vec = QPointF()
@@ -88,12 +85,12 @@ class Node(QGraphicsItem):
         painter.setPen(QPen(Qt.GlobalColor.black, 0))
         painter.drawEllipse(-10, -10, 20, 20)
 
-    def itemChange(self, change, value):
+    def itemChange(self, change: QGraphicsItem.GraphicsItemChange, value):
         if change == QGraphicsItem.GraphicsItemChange.ItemPositionHasChanged:
             for edge in self.edges:
                 edge.adjust()
-            self.graph.itemMoved()
-        return QGraphicsItem.itemChange(change, value)
+            self.graph.itemmoved()
+        return QGraphicsItem.itemChange(self, change, value)
 
     def mousePressEvent(self, event):
         self.update()

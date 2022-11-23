@@ -6,22 +6,26 @@ from math import atan2, sin, cos, pi
 
 class Edge(QGraphicsItem):
     
-    def __init__(self, source, destination):
+    def __init__(self, source: QGraphicsItem, destination: QGraphicsItem):
+        super().__init__()
         self.source = source
         self.destination = destination
         self.sourcepoint = None
         self.destpoint = None
         self.arrowsize = 10
+        self.setAcceptedMouseButtons(Qt.MouseButton.NoButton)
+        self.source.addedge(self)
+        self.destination.addedge(self)
         self.adjust()
     
     def adjust(self):
         if (not self.source)  or (not self.destination):
             return
-        line = QLineF(QGraphicsItem.mapFromItem(self.source, 0, 0), QGraphicsItem.mapFromItem(self.destination, 0, 0))
+        line = QLineF(QGraphicsItem.mapFromItem(self, self.source, float(0), float(0)), QGraphicsItem.mapFromItem(self, self.destination, float(0), float(0)))
         length = line.length()
-        QGraphicsItem.prepareGeometryChange()
+        QGraphicsItem.prepareGeometryChange(self)
         if (length > 20.0):
-            edgeoffset = QPointF((line.dx()*10) / length, (line.dy()*10) / length)
+            edgeoffset = QPointF((line.dx() * 10) / length, (line.dy() * 10) / length)
             self.sourcepoint = line.p1() + edgeoffset
             self.destpoint = line.p2() - edgeoffset
         else:

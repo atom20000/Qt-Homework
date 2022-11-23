@@ -1,20 +1,20 @@
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QPainter, QLinearGradient
 from PyQt5.QtCore import QRectF, QRandomGenerator, Qt
-from node import Node
-from edge import Edge
+from .node import Node
+from .edge import Edge
 
 
 class Graphwidget(QGraphicsView):
     
     def __init__(self):
+        super().__init__()
         self.timerId = 0
         self.centernode = None
-        super().__init__()
-        self.scene = QGraphicsScene(self)
-        self.scene.setItemIndexMethod(QGraphicsScene.NoIndex)
-        self.scene.setSceneRect(-640, -480, 1280, 720)
-        self.setScene(self.scene)
+        self.scene_ = QGraphicsScene(self)
+        self.scene_.setItemIndexMethod(QGraphicsScene.NoIndex)
+        self.scene_.setSceneRect(-200, -200, 400, 400)
+        self.setScene(self.scene_)
         self.setCacheMode(QGraphicsView.CacheModeFlag.CacheBackground)
         self.setViewportUpdateMode(QGraphicsView.ViewportUpdateMode.BoundingRectViewportUpdate)
         self.setRenderHint(QPainter.RenderHint.Antialiasing)
@@ -32,27 +32,27 @@ class Graphwidget(QGraphicsView):
         self.node7 = Node(self)
         self.node8 = Node(self)
         self.node9 = Node(self)
-        self.scene.addItem(self.node1)
-        self.scene.addItem(self.node2)
-        self.scene.addItem(self.node3)
-        self.scene.addItem(self.node4)
-        self.scene.addItem(self.centernode)
-        self.scene.addItem(self.node6)
-        self.scene.addItem(self.node7)
-        self.scene.addItem(self.node8)
-        self.scene.addItem(self.node9)
-        self.scene.addItem( Edge(self.node1, self.node2))
-        self.scene.addItem( Edge(self.node2, self.node3))
-        self.scene.addItem( Edge(self.node2, self.centernode))
-        self.scene.addItem( Edge(self.node3, self.node6))
-        self.scene.addItem( Edge(self.node4, self.node1))
-        self.scene.addItem( Edge(self.node4, self.centernode))
-        self.scene.addItem( Edge(self.centernode, self.node6))
-        self.scene.addItem( Edge(self.centernode, self.node8))
-        self.scene.addItem( Edge(self.node6, self.node9))
-        self.scene.addItem( Edge(self.node7, self.node4))
-        self.scene.addItem( Edge(self.node8, self.node7))
-        self.scene.addItem( Edge(self.node9, self.node8))
+        self.scene_.addItem(self.node1)
+        self.scene_.addItem(self.node2)
+        self.scene_.addItem(self.node3)
+        self.scene_.addItem(self.node4)
+        self.scene_.addItem(self.centernode)
+        self.scene_.addItem(self.node6)
+        self.scene_.addItem(self.node7)
+        self.scene_.addItem(self.node8)
+        self.scene_.addItem(self.node9)
+        self.scene_.addItem(Edge(self.node1, self.node2))
+        self.scene_.addItem(Edge(self.node2, self.node3))
+        self.scene_.addItem(Edge(self.node2, self.centernode))
+        self.scene_.addItem(Edge(self.node3, self.node6))
+        self.scene_.addItem(Edge(self.node4, self.node1))
+        self.scene_.addItem(Edge(self.node4, self.centernode))
+        self.scene_.addItem(Edge(self.centernode, self.node6))
+        self.scene_.addItem(Edge(self.centernode, self.node8))
+        self.scene_.addItem(Edge(self.node6, self.node9))
+        self.scene_.addItem(Edge(self.node7, self.node4))
+        self.scene_.addItem(Edge(self.node8, self.node7))
+        self.scene_.addItem(Edge(self.node9, self.node8))
 
         self.node1.setPos(-50, -50)
         self.node2.setPos(0, -50)
@@ -64,9 +64,9 @@ class Graphwidget(QGraphicsView):
         self.node8.setPos(0, 50)
         self.node9.setPos(50, 50)
 
-    def item_moved(self):
+    def itemmoved(self):
         if not self.timerId:
-            self.timerId = self.startTimer(1000 / 25)
+            self.timerId = self.startTimer(1000 / 250)
     
     def keyPressEvent(self, event) -> None:
         if (event := event.key()) and (event == Qt.Key.Key_Up):
@@ -87,9 +87,14 @@ class Graphwidget(QGraphicsView):
             QGraphicsView.keyPressEvent(event)
         
     def timerEvent(self, a0) -> None:
-        nodes = [item for item in self.scene().items() if isinstance(item, Node)]
+        nodes = []
+        items = self.scene().items()
+        for item in items:
+            if isinstance(item, Node):
+                nodes.append(item)
+        #[item for item in self.scene().items() if isinstance(item, Node)]
         for node in nodes:
-            node.calculateForces()
+            node.calculateforces()
         
         if not any([node.advanceposition() for node in nodes]):
             self.killTimer(self.timerId)
