@@ -35,7 +35,7 @@ class Edge(QGraphicsItem):
         return QRectF(self.sourcepoint, QSizeF(self.destpoint.x() - self.sourcepoint.x(),
                                                 self.destpoint.y() - self.sourcepoint.y())).normalized().adjusted(-extra, -extra, extra, extra)        
 
-    def paint(self, painter: QPainter, option: 'QStyleOptionGraphicsItem', widget) -> None:
+    def paint(self, painter: QPainter, option, widget) -> None:
         if (not self.source)  or (not self.destination):
             return
         line = QLineF(self.sourcepoint, self.destpoint)
