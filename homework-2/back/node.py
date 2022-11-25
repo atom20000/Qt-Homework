@@ -40,25 +40,26 @@ class Node(QGraphicsItem):
             vec = self.mapToItem(item, 0, 0)
             dx = vec.x()
             dy = vec.y()
-            l = 2.0 * (dx * dx + dy * dy)
+            l = 7 * (dx * dx + dy * dy)
             if l > 0:
-                xvel += (dx * 150.0) / l
-                yvel += (dy * 150.0) / l
-        weight = (len(self.edges) + 1) * 10
+                xvel += (dx * 170.0) / l
+                yvel += (dy * 170.0) / l
+        weight = (len(self.edges) + 1) * 25
         for edge in self.edges:
             vec = QPointF()
             if edge.source == self:
                 vec = self.mapToItem(edge.destination, 0, 0)
+                #print(vec, '---', self.value)
             else:
                 vec = self.mapToItem(edge.source, 0, 0)
-                print(vec)
+                #print(vec, '---', self.value)
                 #a = 0.1 - (atan(vec.x()/vec.y()) if vec.y() != 0 else 0)
                 #xvel += vec.x()*cos(a) - vec.y()*sin(a)
                 #yvel += vec.y()*cos(a) + vec.x()*sin(a)
             xvel -= vec.x() / weight
             yvel -= vec.y() / weight
 
-        if abs(xvel) < 0.6 and abs(yvel) < 0.6:
+        if abs(xvel) < 0.55 and abs(yvel) < 0.55:
             xvel = yvel = 0
         sceneRect = self.scene().sceneRect()
         self.newposition = self.pos() + QPointF(xvel, yvel)

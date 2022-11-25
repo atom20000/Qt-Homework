@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QPainter, QLinearGradient
-from PyQt5.QtCore import QRectF, QRandomGenerator, Qt
+from PyQt5.QtCore import QRectF, QPointF, QRandomGenerator, Qt
 from .node import Node
 from .edge import Edge
 
@@ -13,7 +13,7 @@ class Graphwidget(QGraphicsView):
         self.centernode = None
         self.scene_ = QGraphicsScene(self)
         self.scene_.setItemIndexMethod(QGraphicsScene.NoIndex)
-        self.scene_.setSceneRect(-649, -480, 1280, 720)
+        self.scene_.setSceneRect(-640, -480, 1280, 720)
         self.setScene(self.scene_)
         self.setCacheMode(QGraphicsView.CacheModeFlag.CacheBackground)
         self.setViewportUpdateMode(QGraphicsView.ViewportUpdateMode.BoundingRectViewportUpdate)
@@ -64,27 +64,36 @@ class Graphwidget(QGraphicsView):
         #self.node8.setPos(0, 50)
         #self.node9.setPos(50, 50)
         self.centernode = Node(self)
-        self.retree(data, self.centernode)
-        self.centernode.setPos(0, 1)
+        self.centernode.setPos(0, -(self.scene_.height()/2 - 70))
+        #self.centernode.setPos(self.scene_.width()/4, self.scene_.height()/4)
+        self.retree(data, self.centernode, self.depth(data))
 
-    def retree(self, root: dict, parent: Node):
+    def retree(self, root: dict, parent: Node, count):
         if root:
             parent.value = root.get('value')
             self.scene_.addItem(parent)
-            parent.setPos(0, 0)
+            #parent.setPos(0, 0)
             if root.get('left'):
                 left = Node(self)
                 self.scene_.addItem(Edge(parent, left))
-                left.setPos(0, 0)
-                self.retree(root.get('left'), left)
+                #left.setPos(parent.mapToScene(0, 0) + QPointF(5*5, -8.66*5))
+                left.setPos(parent.mapToScene(0, 0) + QPointF(-4.33*10*count, 2.5*10*count))
+                self.retree(root.get('left'), left, count-1)
             
             if root.get('right'):
                 right = Node(self)
+                right.setPos(parent.mapToScene(0, 0) + QPointF(4.33*10*count, 2.5*10*count))
+                #right.setPos(parent.mapToScene(0, 0) + QPointF(2.5*10, 4.33*10))
                 self.scene_.addItem(Edge(parent, right))
-                right.setPos(0, 0)
-                self.retree(root.get('right'), right)
+                self.retree(root.get('right'), right, count-1)
+
+    def depth(self, d):
+        if isinstance(d, dict):
+            return 1 + (max(map(self.depth, d.values())) if d else 0)
+        return 0
 
     def itemmoved(self):
+        #return
         if not self.timerId:
             self.timerId = self.startTimer(1000 / 500)
     

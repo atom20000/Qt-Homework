@@ -2,15 +2,35 @@
     "value": "2",
     "left": {
       "value": "1",
-      "left": null,
-      "right": null
+      "left": {
+        "value": "54",
+        "left": null,
+        "right": null
+      },
+      "right": {
+        "value": "12",
+        "left": null,
+        "right": {
+          "value": "43",
+          "left": null,
+          "right": null
+        }
+      }
     },
     "right": {
       "value": "10",
       "left": {
         "value": "5",
-        "left": null,
-        "right": null
+        "left": {
+          "value": "63",
+          "left": null,
+          "right": null
+        },
+        "right": {
+          "value": "83",
+          "left": null,
+          "right": null
+        }
       },
       "right": {
         "value": "8",
